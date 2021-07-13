@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":Core_Transforms-Side_Input-Side_Input" external.linked.project.path="$MODULE_DIR$/../../../../../Core Transforms/Side Input/Side Input" external.root.project.path="$MODULE_DIR$/../../../../.." external.system.id="GRADLE" external.system.module.group="Beam_Kata" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../../Core Transforms/Side Input/Side Input">
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Core Transforms/Side Input/Side Input/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Core Transforms/Side Input/Side Input/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../Core Transforms/Side Input/Side Input/out" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

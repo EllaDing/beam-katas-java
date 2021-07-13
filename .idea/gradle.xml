@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Common Transforms/Aggregation/Count" />
+            <option value="$PROJECT_DIR$/Common Transforms/Aggregation/Max" />
+            <option value="$PROJECT_DIR$/Common Transforms/Aggregation/Mean" />
+            <option value="$PROJECT_DIR$/Common Transforms/Aggregation/Min" />
+            <option value="$PROJECT_DIR$/Common Transforms/Aggregation/Sum" />
+            <option value="$PROJECT_DIR$/Common Transforms/Filter/Filter" />
+            <option value="$PROJECT_DIR$/Common Transforms/Filter/ParDo" />
+            <option value="$PROJECT_DIR$/Common Transforms/WithKeys/WithKeys" />
+            <option value="$PROJECT_DIR$/Core Transforms/Branching/Branching" />
+            <option value="$PROJECT_DIR$/Core Transforms/CoGroupByKey/CoGroupByKey" />
+            <option value="$PROJECT_DIR$/Core Transforms/Combine/BinaryCombineFn" />
+            <option value="$PROJECT_DIR$/Core Transforms/Combine/BinaryCombineFn Lambda" />
+            <option value="$PROJECT_DIR$/Core Transforms/Combine/Combine PerKey" />
+            <option value="$PROJECT_DIR$/Core Transforms/Combine/CombineFn" />
+            <option value="$PROJECT_DIR$/Core Transforms/Combine/Simple Function" />
+            <option value="$PROJECT_DIR$/Core Transforms/Composite Transform/Composite Transform" />
+            <option value="$PROJECT_DIR$/Core Transforms/DoFn Additional Parameters/DoFn Additional Parameters" />
+            <option value="$PROJECT_DIR$/Core Transforms/Flatten/Flatten" />
+            <option value="$PROJECT_DIR$/Core Transforms/GroupByKey/GroupByKey" />
+            <option value="$PROJECT_DIR$/Core Transforms/Map/FlatMapElements" />
+            <option value="$PROJECT_DIR$/Core Transforms/Map/MapElements" />
+            <option value="$PROJECT_DIR$/Core Transforms/Map/ParDo" />
+            <option value="$PROJECT_DIR$/Core Transforms/Map/ParDo OneToMany" />
+            <option value="$PROJECT_DIR$/Core Transforms/Partition/Partition" />
+            <option value="$PROJECT_DIR$/Core Transforms/Side Input/Side Input" />
+            <option value="$PROJECT_DIR$/Core Transforms/Side Output/Side Output" />
+            <option value="$PROJECT_DIR$/Examples/Word Count/Word Count" />
+            <option value="$PROJECT_DIR$/IO/Built-in IOs/Built-in IOs" />
+            <option value="$PROJECT_DIR$/IO/TextIO/TextIO Read" />
+            <option value="$PROJECT_DIR$/Introduction/Hello Beam/Hello Beam" />
+            <option value="$PROJECT_DIR$/Triggers/Early Triggers/Early Triggers" />
+            <option value="$PROJECT_DIR$/Triggers/Event Time Triggers/Event Time Triggers" />
+            <option value="$PROJECT_DIR$/Triggers/Window Accumulation Mode/Window Accumulation Mode" />
+            <option value="$PROJECT_DIR$/Windowing/Adding Timestamp/ParDo" />
+            <option value="$PROJECT_DIR$/Windowing/Adding Timestamp/WithTimestamps" />
+            <option value="$PROJECT_DIR$/Windowing/Fixed Time Window/Fixed Time Window" />
+            <option value="$PROJECT_DIR$/util" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

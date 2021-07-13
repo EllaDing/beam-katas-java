@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.apache.beam.learning.katas.intro.hello.TaskTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-07-13T05:15:39" hostname="yis-macbook-air.lan" time="3.157">
+  <properties/>
+  <testcase name="helloWorld" classname="org.apache.beam.learning.katas.intro.hello.TaskTest" time="3.157"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

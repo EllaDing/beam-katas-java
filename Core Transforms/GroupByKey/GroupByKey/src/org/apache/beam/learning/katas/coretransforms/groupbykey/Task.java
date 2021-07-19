@@ -30,6 +30,7 @@ import org.apache.beam.sdk.transforms.GroupByKey;
 import org.apache.beam.sdk.transforms.MapElements;
 import org.apache.beam.sdk.values.KV;
 import org.apache.beam.sdk.values.PCollection;
+import org.apache.beam.sdk.values.TypeDescriptors;
 
 public class Task {
 
@@ -50,7 +51,11 @@ public class Task {
   }
 
   static PCollection<KV<String, Iterable<String>>> applyTransform(PCollection<String> input) {
-    return TODO();
+    PCollection<KV<String, String>> kvs = input.apply(
+            MapElements.into(kvs(strings(),
+                    strings())).via((String i) -> KV.<String,
+                    String>of(i.substring(0, 1), i)));
+    return (PCollection<KV<String, Iterable<String>>>) kvs.apply(GroupByKey.<String, String>create());
   }
 
 }

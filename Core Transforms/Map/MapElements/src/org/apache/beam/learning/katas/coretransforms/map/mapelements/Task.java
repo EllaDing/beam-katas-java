@@ -27,6 +27,8 @@ import org.apache.beam.sdk.transforms.MapElements;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.TypeDescriptors;
 
+import java.lang.reflect.Type;
+
 public class Task {
 
   public static void main(String[] args) {
@@ -44,7 +46,8 @@ public class Task {
   }
 
   static PCollection<Integer> applyTransform(PCollection<Integer> input) {
-    return TODO();
+
+    return input.apply(MapElements.into(TypeDescriptors.integers()).via((Integer i) -> i * 5));
   }
 
 }

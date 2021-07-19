@@ -45,7 +45,8 @@ public class Task {
   }
 
   static PCollection<String> applyTransform(PCollection<String> input) {
-    return TODO();
+    PCollection<String> apply = input.apply(FlatMapElements.into(TypeDescriptors.strings()).via((String i) -> Arrays.asList(i.split(" "))));
+    return apply;
   }
 
 }

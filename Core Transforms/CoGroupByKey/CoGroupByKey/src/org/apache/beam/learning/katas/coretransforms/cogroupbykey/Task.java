@@ -35,6 +35,12 @@ import org.apache.beam.sdk.transforms.join.KeyedPCollectionTuple;
 import org.apache.beam.sdk.values.KV;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.TupleTag;
+import org.apache.beam.sdk.values.TypeDescriptors;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class Task {
 
@@ -61,8 +67,34 @@ public class Task {
 
   static PCollection<String> applyTransform(
       PCollection<String> fruits, PCollection<String> countries) {
+    String fruit_tag = "fruits";
+    String country_tag = "countries";
 
-    TODO()
-  }
-
+    PCollection<KV<String, String>> fruits_map;
+    fruits_map = fruits.apply("CreateFruitMap",
+            MapElements.into(kvs(strings(),
+                    strings())).via((String input) -> KV.of(input.substring(0, 1), input)));
+    PCollection<KV<String, String>> countries_map;
+    countries_map = countries.apply("CreateCountryMap",
+            MapElements.into(kvs(strings(),
+                    strings())).via((String input) -> KV.of(input.substring(0, 1), input)));
+    PCollection<KV<String, CoGbkResult>> keyed_elements = KeyedPCollectionTuple.of(fruit_tag,
+            fruits_map).and(country_tag,
+            countries_map).apply("CreateCoGroupByMap", CoGroupByKey.<String>create());
+    final PCollection<String> result = keyed_elements.apply("FormatOutput", ParDo.of(new DoFn<KV<String, CoGbkResult>, String>() {
+      @ProcessElement
+      public void ProcessElement(ProcessContext c) {
+        KV<String, CoGbkResult> e = c.element();
+        Iterable<String> fruit_gbk = e.getValue().getAll(fruit_tag);
+        Iterable<String> country_gbk = e.getValue().getAll(country_tag);
+        Iterator<String> fruit_iterator = fruit_gbk.iterator();
+        Iterator<String> country_iterator = country_gbk.iterator();
+        while (fruit_iterator.hasNext()) {
+          WordsAlphabet words_alphabet = new WordsAlphabet(e.getKey(), fruit_iterator.next(), country_iterator.next());
+          c.output(words_alphabet.toString());
+        }
+      }
+    }));
+      return result;
+  };
 }

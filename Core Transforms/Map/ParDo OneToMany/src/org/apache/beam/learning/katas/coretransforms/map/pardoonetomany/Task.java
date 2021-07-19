@@ -44,7 +44,14 @@ public class Task {
   }
 
   static PCollection<String> applyTransform(PCollection<String> input) {
-    return TODO();
+    PCollection<String> apply = input.apply(ParDo.of(new DoFn<String, String>() {
+      @ProcessElement
+      public void ProcessElement(ProcessContext c, OutputReceiver<String> receiver) {
+        String[] s = c.element().split(" ");
+        for (String o : s) receiver.output(o);
+        };
+      }));
+    return apply;
   }
 
 }

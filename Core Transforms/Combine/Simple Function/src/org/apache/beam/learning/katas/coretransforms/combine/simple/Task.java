@@ -25,7 +25,10 @@ import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.Combine;
 import org.apache.beam.sdk.transforms.Create;
 import org.apache.beam.sdk.transforms.SerializableFunction;
+import org.apache.beam.sdk.transforms.Sum;
 import org.apache.beam.sdk.values.PCollection;
+
+import java.util.Iterator;
 
 public class Task {
 
@@ -48,8 +51,16 @@ public class Task {
 
   static class SumIntegerFn implements SerializableFunction<Iterable<Integer>, Integer> {
 
-    TODO()
 
+    @Override
+    public Integer apply(Iterable<Integer> input) {
+      Integer result = 0;
+      Iterator<Integer> iterator = input.iterator();
+      while(iterator.hasNext()) {
+        result += iterator.next();
+      }
+      return result;
+    }
   }
 
 }

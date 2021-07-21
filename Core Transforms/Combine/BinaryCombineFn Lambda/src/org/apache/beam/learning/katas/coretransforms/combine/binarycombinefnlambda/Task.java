@@ -25,6 +25,7 @@ import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.Combine;
 import org.apache.beam.sdk.transforms.Create;
+import org.apache.beam.sdk.transforms.SerializableBiFunction;
 import org.apache.beam.sdk.values.PCollection;
 
 public class Task {
@@ -48,7 +49,6 @@ public class Task {
   }
 
   static PCollection<BigInteger> applyTransform(PCollection<BigInteger> input) {
-    return TODO();
+    return input.apply(Combine.globally((acc, i) -> acc.add(i)));
   }
-
 }

@@ -54,8 +54,16 @@ public class Task {
 
   static class SumBigIntegerFn extends BinaryCombineFn<BigInteger> {
 
-    TODO()
-
+    /**
+     * Applies the binary operation to the two operands, returning the result.
+     *
+     * @param left
+     * @param right
+     */
+    @Override
+    public BigInteger apply(BigInteger left, BigInteger right) {
+      return left.add(right);
+    }
   }
 
 }

@@ -50,8 +50,63 @@ public class Task {
 
   static class AverageFn extends CombineFn<Integer, AverageFn.Accum, Double> {
 
-    TODO()
+    static class Accum implements Serializable {
+      Integer num;
+      Integer sum;
+      public Accum(Integer num_, Integer sum_) {
+        num = num_;
+        sum = sum_;
+      }
+    }
+    /**
+     * Returns a new, mutable accumulator value, representing the accumulation of zero input values.
+     */
+    @Override
+    public AverageFn.Accum createAccumulator() {
+      return new Accum(0, 0);
+    }
 
+    /**
+     * Adds the given input value to the given accumulator, returning the new accumulator value.
+     *
+     * @param mutableAccumulator may be modified and returned for efficiency
+     * @param input              should not be mutated
+     */
+    @Override
+    public AverageFn.Accum addInput(AverageFn.Accum mutableAccumulator, Integer input) {
+      mutableAccumulator.num+=1;
+      mutableAccumulator.sum+=input;
+      return mutableAccumulator;
+    }
+
+    /**
+     * Returns an accumulator representing the accumulation of all the input values accumulated in
+     * the merging accumulators.
+     *
+     * @param accumulators only the first accumulator may be modified and returned for efficiency;
+     *                     the other accumulators should not be mutated, because they may be shared with other code
+     *                     and mutating them could lead to incorrect results or data corruption.
+     */
+    @Override
+    public AverageFn.Accum mergeAccumulators(Iterable<AverageFn.Accum> accumulators) {
+      Accum result = new Accum(0, 0);
+      for (Accum acc: accumulators) {
+        result.sum += acc.sum;
+        result.num += acc.num;
+      }
+      return result;
+    }
+
+    /**
+     * Returns the output value that is the result of combining all the input values represented by
+     * the given accumulator.
+     *
+     * @param accumulator can be modified for efficiency
+     */
+    @Override
+    public Double extractOutput(AverageFn.Accum accumulator) {
+      return Double.valueOf(accumulator.sum) / Double.valueOf(accumulator.num);
+    }
   }
 
 }

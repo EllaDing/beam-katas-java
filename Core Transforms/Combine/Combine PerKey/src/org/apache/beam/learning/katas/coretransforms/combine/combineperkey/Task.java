@@ -24,7 +24,9 @@ import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.Combine;
 import org.apache.beam.sdk.transforms.Combine.BinaryCombineFn;
+import org.apache.beam.sdk.transforms.CombineFnBase;
 import org.apache.beam.sdk.transforms.Create;
+import org.apache.beam.sdk.transforms.SerializableBiFunction;
 import org.apache.beam.sdk.values.KV;
 import org.apache.beam.sdk.values.PCollection;
 
@@ -53,13 +55,22 @@ public class Task {
   }
 
   static PCollection<KV<String, Integer>> applyTransform(PCollection<KV<String, Integer>> input) {
-    return TODO();
+    return input.apply(Combine.perKey(new SumIntBinaryCombineFn()));
+
   }
 
   static class SumIntBinaryCombineFn extends BinaryCombineFn<Integer> {
 
-    TODO()
-
+    /**
+     * Applies the binary operation to the two operands, returning the result.
+     *
+     * @param left
+     * @param right
+     */
+    @Override
+    public Integer apply(Integer left, Integer right) {
+      return left + right;
+    }
   }
 
 }

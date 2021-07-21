@@ -53,7 +53,9 @@ public class Task {
   static PCollection<String> applyTransform(
       PCollection<String> words1, PCollection<String> words2) {
 
-    return TODO();
+    PCollectionList words_list = PCollectionList.of(words1).and(words2);
+    PCollection<String> result = (PCollection<String>) words_list.apply(Flatten.<String>pCollections());
+    return result;
   }
 
 }

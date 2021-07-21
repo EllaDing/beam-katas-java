@@ -48,7 +48,8 @@ public class Task {
   }
 
   static PCollectionList<Integer> applyTransform(PCollection<Integer> input) {
-    return TODO();
+    PCollectionList<Integer> apply = input.apply(Partition.of(2, (ele, num) -> ele > 100 ? 0 : 1));
+    return apply;
   }
 
 }

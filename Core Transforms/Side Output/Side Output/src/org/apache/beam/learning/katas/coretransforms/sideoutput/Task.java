@@ -24,6 +24,7 @@ import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.Create;
 import org.apache.beam.sdk.transforms.DoFn;
+import org.apache.beam.sdk.transforms.PTransform;
 import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.PCollectionTuple;
@@ -52,8 +53,17 @@ public class Task {
   static PCollectionTuple applyTransform(
       PCollection<Integer> numbers, TupleTag<Integer> numBelow100Tag,
       TupleTag<Integer> numAbove100Tag) {
+    return numbers.apply(ParDo.of(new DoFn<Integer, Integer>() {
+      @ProcessElement
+      public void ProcessElement(ProcessContext c) {
+        if (c.element() > 100) {
+          c.output(numAbove100Tag, c.element());
+        } else {
+          c.output(numBelow100Tag, c.element());
+        }
+      }
+    }).withOutputTags(numBelow100Tag, TupleTagList.of(numAbove100Tag)));
 
-    return TODO();
   }
 
 }

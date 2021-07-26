@@ -22,6 +22,8 @@ import org.apache.beam.learning.katas.util.Log;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
+import org.apache.beam.sdk.transforms.Combine;
+import org.apache.beam.sdk.transforms.CombineFnBase;
 import org.apache.beam.sdk.transforms.Create;
 import org.apache.beam.sdk.transforms.Sum;
 import org.apache.beam.sdk.values.PCollection;
@@ -42,7 +44,7 @@ public class Task {
   }
 
   static PCollection<Integer> applyTransform(PCollection<Integer> input) {
-    return TODO();
+    return input.apply(Sum.integersGlobally());
   }
 
 }

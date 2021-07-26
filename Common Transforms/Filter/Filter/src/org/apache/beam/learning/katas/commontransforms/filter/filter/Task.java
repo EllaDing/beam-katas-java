@@ -43,7 +43,7 @@ public class Task {
   }
 
   static PCollection<Integer> applyTransform(PCollection<Integer> input) {
-    return TODO();
+    return input.apply(Filter.by((Integer i) -> i % 2 == 0));
   }
 
 }

@@ -23,9 +23,11 @@ import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.Create;
+import org.apache.beam.sdk.transforms.SerializableFunction;
 import org.apache.beam.sdk.transforms.WithTimestamps;
 import org.apache.beam.sdk.values.PCollection;
 import org.joda.time.DateTime;
+import org.joda.time.Instant;
 
 public class Task {
 
@@ -52,7 +54,12 @@ public class Task {
   }
 
   static PCollection<Event> applyTransform(PCollection<Event> events) {
-    return TODO();
+    return events.apply(WithTimestamps.of(new SerializableFunction<Event, Instant>() {
+      @Override
+      public Instant apply(Event input) {
+        return input.getDate().toInstant();
+      }
+    }));
   }
 
 }

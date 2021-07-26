@@ -27,6 +27,9 @@ import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.MapElements;
 import org.apache.beam.sdk.values.PCollection;
+import org.apache.beam.sdk.values.TypeDescriptors;
+
+import java.util.Locale;
 
 public class Task {
 
@@ -37,7 +40,7 @@ public class Task {
     Pipeline pipeline = Pipeline.create(options);
 
     PCollection<String> countries =
-        pipeline.apply("Read Countries", TODO());
+        pipeline.apply("Read Countries", TextIO.read().from(FILE_PATH));
 
     PCollection<String> output = applyTransform(countries);
 
@@ -47,7 +50,7 @@ public class Task {
   }
 
   static PCollection<String> applyTransform(PCollection<String> input) {
-    return TODO();
+    return input.apply(MapElements.into(TypeDescriptors.strings()).via((String s) -> s.toUpperCase(Locale.ROOT)));
   }
 
 }

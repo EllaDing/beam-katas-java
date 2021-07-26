@@ -24,11 +24,13 @@ import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.Count;
 import org.apache.beam.sdk.transforms.Create;
+import org.apache.beam.sdk.transforms.MapElements;
 import org.apache.beam.sdk.transforms.windowing.FixedWindows;
 import org.apache.beam.sdk.transforms.windowing.Window;
 import org.apache.beam.sdk.values.KV;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.TimestampedValue;
+import org.joda.time.Days;
 import org.joda.time.Duration;
 import org.joda.time.Instant;
 
@@ -62,7 +64,9 @@ public class Task {
   }
 
   static PCollection<KV<String, Long>> applyTransform(PCollection<String> events) {
-    return TODO();
+     PCollection<String> window_items = events.apply(Window.<String>into(FixedWindows.of(Duration.standardDays(1))));
+     PCollection<KV<String,Long>> result = window_items.apply(Count.perElement());
+     return result;
   }
 
 }

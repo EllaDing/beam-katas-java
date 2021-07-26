@@ -18,18 +18,15 @@
 
 package org.apache.beam.learning.katas.coretransforms.composite;
 
-import static org.apache.beam.sdk.values.TypeDescriptors.integers;
-
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.beam.learning.katas.util.Log;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.transforms.Create;
-import org.apache.beam.sdk.transforms.DoFn;
-import org.apache.beam.sdk.transforms.MapElements;
-import org.apache.beam.sdk.transforms.PTransform;
-import org.apache.beam.sdk.transforms.ParDo;
+import org.apache.beam.sdk.transforms.*;
 import org.apache.beam.sdk.values.PCollection;
 
 public class Task {
@@ -48,8 +45,15 @@ public class Task {
 
   static class ExtractAndMultiplyNumbers
       extends PTransform<PCollection<String>, PCollection<Integer>> {
-
-    TODO()
-
+    @Override
+    public PCollection<Integer> expand(PCollection<String> input) {
+      return input.apply(FlatMapElements.via(new InferableFunction<String, List<Integer>>() {
+        @Override
+        public List<Integer> apply(String input) throws Exception {
+          List<String> strings = Arrays.asList(input.split(","));
+          return strings.stream().map(Integer::valueOf).map((Integer x)-> x * 10).collect(Collectors.toList());
+        }
+      }));
+    }
   }
 }

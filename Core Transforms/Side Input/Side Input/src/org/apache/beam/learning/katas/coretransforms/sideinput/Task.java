@@ -30,6 +30,7 @@ import org.apache.beam.sdk.transforms.View;
 import org.apache.beam.sdk.values.KV;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.PCollectionView;
+import org.apache.beam.sdk.values.POutput;
 
 public class Task {
 
@@ -70,13 +71,26 @@ public class Task {
   static PCollectionView<Map<String, String>> createView(
       PCollection<KV<String, String>> citiesToCountries) {
 
-    return TODO();
+    return citiesToCountries.apply(View.<String, String>asMap());
   }
 
   static PCollection<Person> applyTransform(
       PCollection<Person> persons, PCollectionView<Map<String, String>> citiesToCountriesView) {
-
-    return TODO();
+    PCollection<Person> result;
+    result = persons.apply(ParDo.of(new DoFn<Person, Person>() {
+      @ProcessElement
+      public void processElement(ProcessContext c) {
+        String city;
+        city = c.element().getCity();
+        final Map<String, String> cityCountryMap;
+        cityCountryMap = c.sideInput(citiesToCountriesView);
+        String country = cityCountryMap.get(city);
+        if (country != null) c.output(new Person(c.element().getName(),
+                city = city,
+                country = country));
+      }
+    }).withSideInput("cities_to_countries", citiesToCountriesView));
+    return result;
   }
 
 }

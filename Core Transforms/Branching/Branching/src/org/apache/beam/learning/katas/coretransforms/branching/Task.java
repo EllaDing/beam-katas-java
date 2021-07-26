@@ -27,6 +27,9 @@ import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.Create;
 import org.apache.beam.sdk.transforms.MapElements;
 import org.apache.beam.sdk.values.PCollection;
+import org.apache.beam.sdk.values.TypeDescriptors;
+
+import java.util.Map;
 
 public class Task {
 
@@ -47,11 +50,11 @@ public class Task {
   }
 
   static PCollection<Integer> applyMultiply5Transform(PCollection<Integer> input) {
-    return TODO();
+    return input.apply("Log multiply 5", MapElements.into(TypeDescriptors.integers()).via((Integer x) -> x * 5));
   }
 
   static PCollection<Integer> applyMultiply10Transform(PCollection<Integer> input) {
-    return TODO();
+    return input.apply("Log multiply 10", MapElements.into(TypeDescriptors.integers()).via((Integer x) -> x * 10));
   }
 
 }

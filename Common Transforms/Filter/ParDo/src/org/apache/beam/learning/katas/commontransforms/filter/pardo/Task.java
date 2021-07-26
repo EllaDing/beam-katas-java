@@ -43,7 +43,14 @@ public class Task {
   }
 
   static PCollection<Integer> applyTransform(PCollection<Integer> input) {
-    return TODO();
+    return input.apply(ParDo.of(new DoFn<Integer, Integer>() {
+      @ProcessElement
+      public void ProcessElement(ProcessContext c) {
+        if (c.element() % 2 == 1) {
+          c.output(c.element());
+        }
+      }
+    }));
   }
 
 }
